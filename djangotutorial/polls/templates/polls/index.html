@@ -1,17 +1,31 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'polls/style.css' %}" />
-
-{% if latest_question_list %}
-<ul>
-  {% for question in latest_question_list %}
-  <li>
-    <a href="{% url 'polls:detail' question.id %}"
-      >{{ question.question_text }}</a
-    >
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>No polls are available.</p>
-{% endif %}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Опросы</title>
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Доступные опросы</h1>
+      {% if latest_question_list %}
+      <ul class="question-list">
+        {% for question in latest_question_list %}
+        <li>
+          <a href="{% url 'polls:detail' question.id %}"
+            >{{ question.question_text }}</a
+          >
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="empty-message">
+        <p>Пока нет ни одного опроса. Загляните позже!</p>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
